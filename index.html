@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratik Byathnal — Software Engineer</title>
+<meta name="description" content="Pratik Byathnal — Software Engineer specializing in Android, fintech, and low-level systems. Portfolio, experience, research, and projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-soft:#6e6e73;
+    --line:#d2d2d7;
+    --accent:#0066ff;
+    --accent-2:#7c3aed;
+    --accent-grad:linear-gradient(120deg,#0066ff 0%,#7c3aed 55%,#ff2d92 100%);
+    --dark:#000000;
+    --dark-soft:#1d1d1f;
+    --nav-h:48px;
+    --radius:22px;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:rgba(0,102,255,.18)}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
+    display:flex;align-items:center;justify-content:center;gap:32px;
+    background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid rgba(0,0,0,.06);
+    font-size:13px;font-weight:500;letter-spacing:.01em;
+    transition:background .3s,color .3s,border-color .3s;
+  }
+  nav .brand{font-weight:600;letter-spacing:-.01em}
+  nav a{color:var(--ink);opacity:.85;transition:opacity .2s}
+  nav a:hover{opacity:1}
+  nav.dark{background:rgba(0,0,0,.6);border-bottom-color:rgba(255,255,255,.1)}
+  nav.dark a,nav.dark .brand{color:#f5f5f7}
+  @media(max-width:720px){nav{gap:18px;font-size:12px;padding:0 14px}.nav-hide{display:none}}
+
+  /* ---------- Layout ---------- */
+  section{position:relative}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:14px;font-weight:600;letter-spacing:.02em;
+    background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px}
+  h2.title{font-size:clamp(34px,5vw,56px);font-weight:700;letter-spacing:-.02em;line-height:1.06}
+  .lead{font-size:clamp(17px,2.2vw,21px);color:var(--ink-soft);max-width:660px;margin-top:16px;font-weight:400}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;
+    background:radial-gradient(120% 80% at 50% -10%,#eef2ff 0%,#ffffff 45%,#ffffff 100%);
+  }
+  .hero .glow{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(40% 30% at 20% 20%,rgba(124,58,237,.16),transparent 60%),
+      radial-gradient(45% 35% at 82% 18%,rgba(0,102,255,.18),transparent 60%),
+      radial-gradient(50% 40% at 50% 90%,rgba(255,45,146,.10),transparent 60%);
+    animation:drift 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift{from{transform:translateY(0) scale(1)}to{transform:translateY(-18px) scale(1.05)}}
+  .hero .inner{position:relative;z-index:1}
+  .avatar{
+    width:104px;height:104px;border-radius:50%;margin:0 auto 30px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:600;color:#fff;letter-spacing:-.02em;
+    background:var(--accent-grad);box-shadow:0 18px 50px -12px rgba(0,102,255,.5);
+  }
+  .hero h1{font-size:clamp(44px,8vw,92px);font-weight:700;letter-spacing:-.035em;line-height:1.02}
+  .hero h1 .grad{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .role{font-size:clamp(19px,3vw,28px);font-weight:500;color:var(--ink);margin-top:18px;letter-spacing:-.01em}
+  .hero .sub{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);margin-top:14px;max-width:620px;margin-left:auto;margin-right:auto}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:980px;
+    font-size:15px;font-weight:500;transition:transform .2s,box-shadow .3s,background .2s,color .2s;
+  }
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(0,0,0,.4)}
+  .btn-ghost{background:rgba(0,0,0,.05);color:var(--ink)}
+  .btn-ghost:hover{background:rgba(0,0,0,.09);transform:translateY(-2px)}
+  .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:1;
+    font-size:12px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2s ease-in-out infinite}
+  .scroll-cue .chev{width:18px;height:18px;border-right:2px solid var(--ink-soft);border-bottom:2px solid var(--ink-soft);transform:rotate(45deg)}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
+  /* ---------- Generic section spacing ---------- */
+  .pad{padding:120px 0}
+  .pad-sm{padding:90px 0}
+
+  /* ---------- Stats (dark feature) ---------- */
+  .feature-dark{background:var(--dark);color:#f5f5f7;text-align:center;padding:140px 0}
+  .feature-dark .eyebrow{margin-bottom:16px}
+  .feature-dark h2.title{color:#fff}
+  .feature-dark .lead{color:#a1a1a6;margin-left:auto;margin-right:auto}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:64px}
+  .stat .num{font-size:clamp(34px,4.5vw,52px);font-weight:700;letter-spacing:-.02em;
+    background:linear-gradient(120deg,#5ea0ff,#b794ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lbl{font-size:14px;color:#a1a1a6;margin-top:8px;line-height:1.4}
+  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr);gap:36px 20px}}
+
+  /* ---------- Experience timeline ---------- */
+  .tl{margin-top:56px;position:relative}
+  .tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding:0 0 52px 44px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;
+    background:#fff;border:3px solid var(--accent);box-shadow:0 0 0 4px rgba(0,102,255,.12)}
+  .tl-item .when{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.01em}
+  .tl-item h3{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-top:4px}
+  .tl-item .org{font-size:16px;color:var(--ink-soft);margin-top:2px}
+  .tl-item ul{margin:14px 0 0;padding-left:18px;color:var(--ink);font-size:15.5px}
+  .tl-item ul li{margin-bottom:8px}
+  .tl-item ul li::marker{color:var(--accent)}
+
+  /* ---------- Cards grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:56px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--bg-soft);border-radius:var(--radius);padding:34px 32px;
+    border:1px solid rgba(0,0,0,.04);transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 22px 50px -20px rgba(0,0,0,.22)}
+  .card .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.02em;
+    color:var(--accent);background:rgba(0,102,255,.08);padding:5px 12px;border-radius:980px;margin-bottom:16px}
+  .card h3{font-size:21px;font-weight:600;letter-spacing:-.01em}
+  .card p{font-size:15px;color:var(--ink-soft);margin-top:10px}
+  .card .lk{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14px;font-weight:500;color:var(--accent)}
+  .card .lk:hover{text-decoration:underline}
+
+  /* ---------- Research ---------- */
+  .research-section{background:var(--bg-soft)}
+  .paper{background:#fff;border-radius:var(--radius);padding:34px;border:1px solid rgba(0,0,0,.05);
+    transition:transform .35s,box-shadow .35s}
+  .paper:hover{transform:translateY(-5px);box-shadow:0 22px 50px -22px rgba(0,0,0,.2)}
+  .paper .meta{font-size:13px;color:var(--ink-soft);margin-top:6px}
+  .paper h3{font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+  .paper p{font-size:14.5px;color:var(--ink-soft);margin-top:12px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;color:var(--accent-2);
+    background:rgba(124,58,237,.09);padding:5px 12px;border-radius:980px}
+
+  /* ---------- Skills ---------- */
+  .skill-group{margin-top:30px}
+  .skill-group h4{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:13.5px;font-weight:500;color:var(--ink);background:#fff;border:1px solid var(--line);
+    padding:8px 16px;border-radius:980px;transition:border-color .2s,color .2s,transform .2s}
+  .chip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+  /* ---------- Education ---------- */
+  .edu{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+  @media(max-width:760px){.edu{grid-template-columns:1fr}}
+  .edu .card h3{font-size:18px}
+  .edu .yr{font-size:13px;font-weight:600;color:var(--accent)}
+
+  /* ---------- Contact ---------- */
+  .contact{background:var(--dark);color:#f5f5f7;text-align:center;padding:140px 0 90px}
+  .contact h2.title{color:#fff}
+  .contact .lead{color:#a1a1a6;margin:18px auto 0}
+  .social{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:42px}
+  .social a{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:980px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:15px;font-weight:500;
+    transition:background .25s,transform .25s,border-color .25s}
+  .social a:hover{background:rgba(255,255,255,.16);transform:translateY(-3px);border-color:rgba(255,255,255,.3)}
+  .social svg{width:20px;height:20px}
+  footer{background:var(--dark);color:#6e6e73;text-align:center;font-size:12.5px;padding:30px 24px 50px;border-top:1px solid rgba(255,255,255,.07)}
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.glow{animation:none}.scroll-cue{animation:none}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <span class="brand">Pratik Byathnal</span>
+  <a href="#work" class="nav-hide">Experience</a>
+  <a href="#projects" class="nav-hide">Projects</a>
+  <a href="#research" class="nav-hide">Research</a>
+  <a href="#skills" class="nav-hide">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="inner">
+    <div class="avatar">PB</div>
+    <h1>Building software<br>from <span class="grad">app to kernel.</span></h1>
+    <p class="role">Pratik Byathnal — Software Engineer</p>
+    <p class="sub">Android & fintech engineer with a systems heart. From shipping investment features to millions of users, to Linux kernels, secure boot, and 5G modem stacks.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#contact">Get in touch</a>
+      <a class="btn btn-ghost" href="Pratik_Byathnal_Resume.pdf" download>↓ Download résumé</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="chev"></span></div>
+</header>
+
+<!-- ABOUT -->
+<section class="pad" id="about">
+  <div class="wrap reveal">
+    <p class="eyebrow">About</p>
+    <h2 class="title">Engineering across<br>the entire stack.</h2>
+    <p class="lead">I'm an experienced software engineer who has shipped production Android features at consumer-scale fintech, optimized 5G NR MAC-layer software at Samsung, and now research cybersecurity and distributed systems as a Master's student at Western University. I'm equally at home in Kotlin and coroutines as I am in C, device trees, and Yocto builds.</p>
+  </div>
+</section>
+
+<!-- STATS (dark feature) -->
+<section class="feature-dark" id="impact">
+  <div class="wrap reveal">
+    <p class="eyebrow">Impact</p>
+    <h2 class="title">Work that reached<br>millions.</h2>
+    <p class="lead">A snapshot of the scale and reliability I've engineered for in production.</p>
+    <div class="stats">
+      <div class="stat"><div class="num">10M+</div><div class="lbl">Google Play downloads on shipped fintech app</div></div>
+      <div class="stat"><div class="num">~2.1M</div><div class="lbl">Active users served at peak</div></div>
+      <div class="stat"><div class="num">&lt;10%</div><div class="lbl">Regression defect rate via test automation</div></div>
+      <div class="stat"><div class="num">84.6%</div><div class="lbl">Top-3 accuracy on SOC alert research</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="pad" id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Experience</p>
+      <h2 class="title">Where I've built.</h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item reveal">
+        <div class="when">Sept 2022 – Nov 2023</div>
+        <h3>Android Developer</h3>
+        <div class="org">Epifi Technologies (Fi.Money) · Bangalore, India</div>
+        <ul>
+          <li>Shipped Android fintech features for a platform serving ~700K–2.1M active users and 10M+ Play Store downloads.</li>
+          <li>Built Mutual Funds and US Stocks investment modules — onboarding flows, portfolio dashboards, and interactive stock visualizations with MPAndroidChart.</li>
+          <li>Architected scalable Android with MVVM, Jetpack, Room, Dagger, and Kotlin Coroutines; led migration from Kotlin Synthetics to View Binding across modules.</li>
+          <li>Built UI test automation from scratch with Appium + AWS Device Farm, holding regression defects below 10%.</li>
+          <li>Mentored an engineering intern and maintained zero ANR-related issues on owned features.</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">Jul 2021 – Jan 2022</div>
+        <h3>Software Engineer</h3>
+        <div class="org">Samsung Research Institute (SRI-B) · Bangalore, India</div>
+        <ul>
+          <li>Developed and optimized 5G NR MAC-layer features aligned with 3GPP specs for next-gen wireless and modem software stacks.</li>
+          <li>Implemented beam-ID mapping linking narrow beams to wide beam groups — reducing signaling overhead and improving handover efficiency.</li>
+          <li>Contributed C++ to modem binaries within distributed telecom codebases of millions of lines.</li>
+          <li>Collaborated across India and South Korea on carrier features for SK Telecom, Verizon, and Reliance Jio.</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">Jun 2022 – Aug 2022</div>
+        <h3>Android Developer Intern</h3>
+        <div class="org">Epifi Technologies (Fi.Money) · Bangalore, India</div>
+        <ul>
+          <li>Built reusable Android UI-kit components and theme-aligned design elements adopted across modules.</li>
+          <li>Stood up automated UI testing with Appium + AWS Device Farm, cutting manual regression effort across devices and OS versions.</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">Jan 2021 – Jun 2021</div>
+        <h3>Research Intern — ML/AI</h3>
+        <div class="org">Samsung Research Institute · Bangalore, India</div>
+        <ul>
+          <li>Built data-augmentation and preprocessing pipelines to improve Automatic Speech Recognition robustness.</li>
+          <li>Developed an internal web validation platform for speech testing/annotation, raising evaluation productivity ~3×.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="pad-sm" id="projects">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Projects</p>
+      <h2 class="title">Things I've made.</h2>
+    </div>
+    <div class="grid">
+      <div class="card reveal">
+        <span class="tag">Android · Privacy</span>
+        <h3>SMS Parser for Fintech Telemetry</h3>
+        <p>Privacy-conscious SMS parsing system identifying telecom promotion channels via server-configured filters — without ever touching private message content. Scheduled background workflows on Android JobScheduler, optimized for battery and scale.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Android · Fintech</span>
+        <h3>Mutual Funds & US Stocks</h3>
+        <p>Investment modules with interactive financial visualizations, real-time market APIs, and a re-architected navigation system — migrating from tab-based to dialog-overlay flows by refactoring Gradle, deep-links, and module structure.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Linux · Embedded</span>
+        <h3>Embedded Linux & Kernel — Raspberry Pi 3</h3>
+        <p>Custom Yocto layers and BitBake recipes producing reproducible rootfs images. Kernel configuration, Device Tree edits, cross-compilation toolchains, and low-level debugging with kgdb, ftrace, perf, and git bisect — plus secure-boot-aware trusted boot chains.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">React Native · Frontend</span>
+        <h3>Bilingo — Language Learning</h3>
+        <p>A Duolingo-inspired learning platform built in React Native with reusable components, Hooks-driven state, and Expo Go testing — developed collaboratively with Git, PRs, and GitHub Projects.</p>
+        <a class="lk" href="https://github.com/nasifnuh/bilingo" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="pad research-section" id="research">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Research</p>
+      <h2 class="title">Questions worth<br>investigating.</h2>
+      <p class="lead">Academic work spanning systems security and applied machine learning for cyber defense.</p>
+    </div>
+    <div class="grid">
+      <div class="paper reveal">
+        <span class="pill">Security · MITRE ATT&CK</span>
+        <h3 style="margin-top:14px">Semantic Context-Aware SOC Alert Prioritization Using Embedding-Based MITRE ATT&amp;CK Mapping</h3>
+        <div class="meta">Western University · with A. A. A. J. Sadiq &amp; K. R. Ahmed</div>
+        <p>Converts network flow and log records into semantic alert descriptions, applies a Random Forest tactic classifier, and uses FAISS-indexed Sentence Transformer embeddings to map alerts to the top-3 MITRE ATT&amp;CK techniques — achieving 70.0% Top-1 and 84.6% Top-3 accuracy against official ground-truth mappings.</p>
+        <a class="lk" href="SOC_Alert_Prioritization.pdf" target="_blank" rel="noopener">Read the paper →</a>
+      </div>
+      <div class="paper reveal">
+        <span class="pill">Linux · Secure Boot</span>
+        <h3 style="margin-top:14px">A Survey on Secure Boot and Verified Boot Mechanisms in Linux-Based Systems</h3>
+        <div class="meta">Western University · advised by Marwa Elsayed · Dec 2025</div>
+        <p>Surveys secure boot mechanisms, vulnerabilities, and verification approaches across Android, ARM TrustZone–based IoT devices, and embedded Linux — identifying open challenges and the need for standardized practices and automated verification frameworks.</p>
+        <a class="lk" href="Survey_Secure_Boot.pdf" target="_blank" rel="noopener">Read the survey →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="pad" id="skills">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Skills</p>
+      <h2 class="title">The toolkit.</h2>
+    </div>
+    <div class="reveal">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="chips"><span class="chip">Java</span><span class="chip">Kotlin</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">JavaScript</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Mobile &amp; Platform</h4>
+        <div class="chips"><span class="chip">Android SDK</span><span class="chip">Jetpack (MVVM, Room, Nav, LiveData)</span><span class="chip">Coroutines</span><span class="chip">Firebase</span><span class="chip">REST APIs</span><span class="chip">gRPC</span><span class="chip">AOSP Fundamentals</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Systems &amp; Infrastructure</h4>
+        <div class="chips"><span class="chip">Linux</span><span class="chip">Distributed Systems</span><span class="chip">Parallel Computing</span><span class="chip">Multithreading</span><span class="chip">Secure &amp; Verified Boot</span><span class="chip">Yocto</span><span class="chip">Embedded Systems</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools &amp; Testing</h4>
+        <div class="chips"><span class="chip">Git</span><span class="chip">Android Studio</span><span class="chip">Appium</span><span class="chip">AWS Device Farm</span><span class="chip">React / React Native</span><span class="chip">CI/CD</span><span class="chip">Performance Profiling</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="pad-sm" id="education" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Education</p>
+      <h2 class="title">Foundations.</h2>
+    </div>
+    <div class="edu">
+      <div class="card reveal">
+        <div class="yr">2025 – 2026</div>
+        <h3 style="margin-top:8px">M.Sc. Computer Science</h3>
+        <p>Western University, London, Ontario — research in cybersecurity and distributed/parallel systems.</p>
+      </div>
+      <div class="card reveal">
+        <div class="yr">2024 – 2025</div>
+        <h3 style="margin-top:8px">Grad Certificate, Mobile App Development (Co-op)</h3>
+        <p>London, Ontario — GPA 4.1/4.2. Progressive Web Apps, Android, iOS, React.</p>
+      </div>
+      <div class="card reveal">
+        <div class="yr">2017 – 2021</div>
+        <h3 style="margin-top:8px">B.Tech. Computer Science &amp; Engineering</h3>
+        <p>PES University, Bangalore — CGPA 7.9/10. Systems, Big Data, Cloud, ML, AI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap reveal">
+    <p class="eyebrow">Contact</p>
+    <h2 class="title">Let's build<br>something.</h2>
+    <p class="lead">Open to software engineering roles and research collaboration. Find me here:</p>
+    <div class="social">
+      <a href="https://github.com/thecoderpb" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/pratik-byathnal" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        LinkedIn
+      </a>
+      <a href="Pratik_Byathnal_Resume.pdf" download>↓ Résumé (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="yr"></span> Pratik Byathnal · Designed &amp; built with care · <a href="#top" style="color:#86868b">Back to top ↑</a>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Nav theme switch over dark sections
+  var nav = document.getElementById('nav');
+  var darkZones = document.querySelectorAll('.feature-dark, .contact');
+  function syncNav(){
+    var probe = nav.offsetHeight/2 + 4, over = false;
+    darkZones.forEach(function(z){
+      var r = z.getBoundingClientRect();
+      if(r.top <= probe && r.bottom >= probe) over = true;
+    });
+    nav.classList.toggle('dark', over);
+  }
+  window.addEventListener('scroll', syncNav, {passive:true});
+  window.addEventListener('resize', syncNav);
+  syncNav();
+</script>
+</body>
+</html>
