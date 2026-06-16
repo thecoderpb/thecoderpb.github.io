@@ -224,6 +224,23 @@
     border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
   html[data-theme="dark"] .edu .logo{background:#fff;padding:7px 10px;border-radius:9px;box-sizing:border-box}
 
+  /* ---------- Theme switch transition ---------- */
+  /* Fallback crossfade for browsers without View Transitions */
+  html.theme-anim, html.theme-anim *{
+    transition:background-color .45s ease, color .4s ease, border-color .45s ease, fill .4s ease !important}
+  html.theme-anim .glow, html.theme-anim .scroll-cue, html.theme-anim #progress{transition:none !important}
+  /* Circular reveal via View Transitions (Chromium) */
+  ::view-transition-old(root){z-index:1}
+  ::view-transition-new(root){z-index:2147483646}
+  html.theme-anim::view-transition-old(root){animation:none}
+  html.theme-anim::view-transition-new(root){animation:themeReveal .5s cubic-bezier(.4,0,.2,1)}
+  @keyframes themeReveal{
+    from{clip-path:circle(0% at var(--tx,50%) var(--ty,0))}
+    to{clip-path:circle(150% at var(--tx,50%) var(--ty,0))}}
+  @media(prefers-reduced-motion:reduce){
+    html.theme-anim, html.theme-anim *{transition:none !important}
+    html.theme-anim::view-transition-new(root){animation:none}}
+
   /* ---------- Reveal animation ---------- */
   .reveal{opacity:0;transform:translateY(42px) scale(.985);
     transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1)}
@@ -587,15 +604,31 @@
   window.addEventListener('resize', onScroll);
   onScroll();
 
-  // ---- Dark mode toggle ----
+  // ---- Dark mode toggle (with View Transitions circular reveal) ----
   var toggle = document.getElementById('themeToggle');
+  function applyTheme(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark){ document.documentElement.removeAttribute('data-theme'); }
+    else { document.documentElement.setAttribute('data-theme', 'dark'); }
+    try{ localStorage.setItem('theme', isDark ? 'light' : 'dark'); }catch(e){}
+    onScroll(); // re-sync nav styling
+  }
   if(toggle){
     toggle.addEventListener('click', function(){
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if(isDark){ document.documentElement.removeAttribute('data-theme'); }
-      else { document.documentElement.setAttribute('data-theme', 'dark'); }
-      try{ localStorage.setItem('theme', isDark ? 'light' : 'dark'); }catch(e){}
-      onScroll(); // re-sync nav styling
+      if(reduce){ applyTheme(); return; }
+      var r = toggle.getBoundingClientRect();
+      var root = document.documentElement;
+      root.style.setProperty('--tx', (r.left + r.width/2) + 'px');
+      root.style.setProperty('--ty', (r.top + r.height/2) + 'px');
+      root.classList.add('theme-anim');
+      if(document.startViewTransition){
+        var vt = document.startViewTransition(applyTheme);
+        vt.finished.then(function(){ root.classList.remove('theme-anim'); },
+                          function(){ root.classList.remove('theme-anim'); });
+      } else {
+        applyTheme();
+        setTimeout(function(){ root.classList.remove('theme-anim'); }, 500);
+      }
     });
   }
 </script>
