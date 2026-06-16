@@ -163,10 +163,12 @@
   .chip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 
   /* ---------- Education ---------- */
-  .edu{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+  .edu{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:56px}
   @media(max-width:760px){.edu{grid-template-columns:1fr}}
-  .edu .card h3{font-size:18px}
+  .edu .card{display:flex;flex-direction:column}
+  .edu .card h3{font-size:19px}
   .edu .yr{font-size:13px;font-weight:600;color:var(--accent)}
+  .edu .logo{height:54px;width:auto;max-width:170px;object-fit:contain;object-position:left center;margin-bottom:20px}
 
   /* ---------- Contact ---------- */
   .contact{background:var(--dark);color:#f5f5f7;text-align:center;padding:140px 0 90px}
@@ -387,16 +389,13 @@
     </div>
     <div class="edu">
       <div class="card reveal">
+        <img class="logo" src="western_logo.svg" alt="Western University">
         <div class="yr">2025 – 2026</div>
         <h3 style="margin-top:8px">M.Sc. Computer Science</h3>
         <p>Western University, London, Ontario — research in cybersecurity and distributed/parallel systems.</p>
       </div>
       <div class="card reveal">
-        <div class="yr">2024 – 2025</div>
-        <h3 style="margin-top:8px">Grad Certificate, Mobile App Development (Co-op)</h3>
-        <p>London, Ontario — GPA 4.1/4.2. Progressive Web Apps, Android, iOS, React.</p>
-      </div>
-      <div class="card reveal">
+        <img class="logo" src="pes_logo.png" alt="PES University">
         <div class="yr">2017 – 2021</div>
         <h3 style="margin-top:8px">B.Tech. Computer Science &amp; Engineering</h3>
         <p>PES University, Bangalore — CGPA 7.9/10. Systems, Big Data, Cloud, ML, AI.</p>
